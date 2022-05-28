@@ -23,6 +23,6 @@ inputs:
     description: 'should --dry-run=client be used, e.g. `dryrun: true`'
     required: false
     default: 'false'
-  command:
+  commands:
     description: 'kubectl commands to run, without the kubectl, e.g. `get pods`'
     required: true

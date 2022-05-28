@@ -1,0 +1,38 @@
+name: Test
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+
+jobs:
+  test-master:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test Master
+        uses: cuzfrog/kubectl@master
+        with:
+          config: ${{ secrets.KUBE_CONFIG_DATA }}
+          dryrun: true
+          commands: |
+            apply -f test/app.pvc.yml
+            apply -f test/app.service.yml
+
+  test-pr:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test PR
+        uses: ./
+        with:
+          config: ${{ secrets.KUBE_CONFIG_DATA }}
+          dryrun: true
+          commands: |
+            apply -f test/app.pvc.yml
+            apply -f test/app.service.yml

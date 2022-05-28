@@ -29,7 +29,10 @@ mv kubectl /usr/local/bin
 echo "$config" | base64 -d > /tmp/config
 export KUBECONFIG=/tmp/config
 
-for command in ${cmdArr[*]}
-  do
-    sh -c "kubectl $dryrun $command"
-  done
+arraylength=${#cmdArr[@]}
+for (( i=0; i<${arraylength}; i++ ));
+do
+  execCmd="kubectl $dryrun ${cmdArr[$i]}"
+  echo $execCmd
+  sh -c $execCmd
+done

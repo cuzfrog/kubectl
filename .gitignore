@@ -3,3 +3,6 @@
 .vscode/
 .vs/
 .settings/
+
+# dev
+/tmp
