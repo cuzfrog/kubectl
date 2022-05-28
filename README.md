@@ -21,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: deploy to cluster
-      uses: steebchen/kubectl@v3
+      uses: cuzfrog/kubectl@v3
       with: # defaults to latest kubectl binary version
         config: ${{ secrets.KUBE_CONFIG_DATA }}
         dryrun: true
