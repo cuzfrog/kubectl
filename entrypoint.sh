@@ -32,7 +32,10 @@ export KUBECONFIG=/tmp/config
 arraylength=${#cmdArr[@]}
 for (( i=0; i<${arraylength}; i++ ));
 do
-  execCmd="kubectl $dryrun ${cmdArr[$i]}"
-  echo $execCmd
-  sh -c $execCmd
+  command=${cmdArr[$i]}
+  if [ ! -z "$command" ]; then
+    execCmd="kubectl $dryrun $command"
+    echo $execCmd
+    sh -c "$execCmd"
+  fi
 done

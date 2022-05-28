@@ -1,3 +1,4 @@
+![test workflow](https://github.com/cuzfrog/kubectl/actions/workflows/test-action.yml/badge.svg)
 # GitHub Action for Kubernetes CLI
 
 This action provides `kubectl` for GitHub Actions.
