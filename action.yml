@@ -6,7 +6,8 @@ runs:
   args:
     - ${{ inputs.version }}
     - ${{ inputs.config }}
-    - ${{ inputs.command }}
+    - ${{ inputs.dryrun }}
+    - ${{ inputs.commands }}
 branding:
   icon: 'terminal'
   color: 'blue'
@@ -18,6 +19,10 @@ inputs:
   config:
     description: 'kube config data'
     required: true
+  dryrun:
+    description: 'should --dry-run=client be used, e.g. `dryrun: true`'
+    required: false
+    default: 'false'
   command:
-    description: 'kubectl command to run, without the kubectl, e.g. `get pods`'
+    description: 'kubectl commands to run, without the kubectl, e.g. `get pods`'
     required: true

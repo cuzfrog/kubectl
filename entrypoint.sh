@@ -1,14 +1,23 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
 version="$1"
 config="$2"
-command="$3"
+dryrun="$3"
+commands="$4"
 
 if [ "$version" = "latest" ]; then
   version=$(curl -Ls https://dl.k8s.io/release/stable.txt)
 fi
+
+if [ "$dryrun" = "true" ]; then
+  dryrun="--dry-run=client"
+else
+  dryrun=""
+fi
+
+readarray -t cmdArr <<<"$commands"
 
 echo "using kubectl@$version"
 
@@ -20,4 +29,7 @@ mv kubectl /usr/local/bin
 echo "$config" | base64 -d > /tmp/config
 export KUBECONFIG=/tmp/config
 
-sh -c "kubectl $command"
+for command in ${cmdArr[*]}
+  do
+    sh -c "kubectl $dryrun $command"
+  done
